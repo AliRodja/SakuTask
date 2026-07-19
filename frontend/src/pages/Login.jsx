@@ -7,17 +7,22 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (submitting) return;
     setError('');
+    setSubmitting(true);
     try {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login gagal.');
+      setError(err.friendlyMessage || 'Login gagal.');
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -52,9 +57,10 @@ export default function Login() {
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700"
+            disabled={submitting}
+            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
           >
-            Masuk
+            {submitting ? 'Memproses...' : 'Masuk'}
           </button>
         </form>
 

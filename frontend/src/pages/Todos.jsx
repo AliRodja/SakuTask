@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Plus, Check, Trash2 } from 'lucide-react';
 import api from '../lib/api';
+import Spinner from '../components/Spinner';
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ task_name: '', due_date: '', reminder_time: '' });
   const [error, setError] = useState('');
 
@@ -13,20 +16,31 @@ export default function Todos() {
   }, []);
 
   async function loadTodos() {
-    const { data } = await api.get('/todos');
-    setTodos(data);
+    setLoading(true);
+    try {
+      const { data } = await api.get('/todos');
+      setTodos(data);
+    } catch (err) {
+      setError(err.friendlyMessage);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (submitting) return;
     setError('');
+    setSubmitting(true);
     try {
       await api.post('/todos', form);
       setForm({ task_name: '', due_date: '', reminder_time: '' });
       setShowForm(false);
-      loadTodos();
+      await loadTodos();
     } catch (err) {
-      setError(err.response?.data?.message || 'Gagal menambah tugas.');
+      setError(err.friendlyMessage);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -77,52 +91,57 @@ export default function Todos() {
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
             required
           />
-          <button type="submit" className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium">
-            Simpan
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium disabled:opacity-50"
+          >
+            {submitting ? 'Menyimpan...' : 'Simpan'}
           </button>
         </form>
       )}
 
-      <ul className="space-y-2">
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm"
-          >
-            <button
-              onClick={() => toggleStatus(todo)}
-              className={`w-6 h-6 shrink-0 rounded-full border flex items-center justify-center ${
-                todo.status === 'completed'
-                  ? 'bg-green-600 border-green-600 text-white'
-                  : 'border-gray-300'
-              }`}
-            >
-              {todo.status === 'completed' && <Check className="w-4 h-4" />}
-            </button>
-
-            <div className="flex-1 min-w-0">
-              <p
-                className={`text-sm font-medium ${
-                  todo.status === 'completed' ? 'line-through text-gray-400' : 'text-gray-900'
+      {loading ? (
+        <Spinner label="Memuat tugas..." />
+      ) : (
+        <ul className="space-y-2">
+          {todos.map((todo) => (
+            <li key={todo.id} className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm">
+              <button
+                onClick={() => toggleStatus(todo)}
+                className={`w-6 h-6 shrink-0 rounded-full border flex items-center justify-center ${
+                  todo.status === 'completed'
+                    ? 'bg-green-600 border-green-600 text-white'
+                    : 'border-gray-300'
                 }`}
               >
-                {todo.task_name}
-              </p>
-              <p className="text-xs text-gray-400">
-                {todo.due_date?.slice(0, 10)} · {todo.reminder_time?.slice(0, 5)}
-              </p>
-            </div>
+                {todo.status === 'completed' && <Check className="w-4 h-4" />}
+              </button>
 
-            <button onClick={() => removeTodo(todo.id)} className="text-gray-300 hover:text-red-600">
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </li>
-        ))}
+              <div className="flex-1 min-w-0">
+                <p
+                  className={`text-sm font-medium ${
+                    todo.status === 'completed' ? 'line-through text-gray-400' : 'text-gray-900'
+                  }`}
+                >
+                  {todo.task_name}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {todo.due_date?.slice(0, 10)} · {todo.reminder_time?.slice(0, 5)}
+                </p>
+              </div>
 
-        {todos.length === 0 && (
-          <p className="text-sm text-gray-400 text-center py-8">Belum ada tugas.</p>
-        )}
-      </ul>
+              <button onClick={() => removeTodo(todo.id)} className="text-gray-300 hover:text-red-600">
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </li>
+          ))}
+
+          {todos.length === 0 && (
+            <p className="text-sm text-gray-400 text-center py-8">Belum ada tugas.</p>
+          )}
+        </ul>
+      )}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', whatsapp_number: '', password: '' });
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -15,13 +16,16 @@ export default function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (submitting) return;
     setError('');
+    setSubmitting(true);
     try {
       await register(form);
       navigate('/');
     } catch (err) {
-      const errors = err.response?.data?.errors;
-      setError(errors ? Object.values(errors)[0][0] : 'Registrasi gagal.');
+      setError(err.friendlyMessage || 'Registrasi gagal.');
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -74,9 +78,10 @@ export default function Register() {
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700"
+            disabled={submitting}
+            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
           >
-            Daftar
+            {submitting ? 'Memproses...' : 'Daftar'}
           </button>
         </form>
 
