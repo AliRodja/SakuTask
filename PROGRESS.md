@@ -3,27 +3,30 @@
 Referensi: [PRD_SakuTask.md](PRD_SakuTask.md) (roadmap bagian 7)
 
 ## Langkah 1: Setup Backend & Database (Laravel & PostgreSQL)
-- [ ] Inisialisasi repositori Laravel 11
-- [ ] Konfigurasi koneksi PostgreSQL (`.env`)
-- [ ] Migration: `users` (tambah `whatsapp_number`, `role`)
-- [ ] Migration: `finances`
-- [ ] Migration: `todos`
-- [ ] Migration: `wa_logs`
-- [ ] Models + relasi (User, Finance, Todo, WaLog)
-- [ ] Factories/seeders dasar
+- [x] Inisialisasi repositori Laravel 11
+- [x] Konfigurasi koneksi PostgreSQL (`.env`)
+- [x] Migration: `users` (tambah `whatsapp_number`, `role`)
+- [x] Migration: `finances`
+- [x] Migration: `todos`
+- [x] Migration: `wa_logs`
+- [x] Models + relasi (User, Finance, Todo, WaLog)
+- [x] Factories dasar (`-f` flag saat `make:model`)
 
 ## Langkah 2: RESTful API & Keamanan
-- [ ] Setup Laravel Sanctum (register/login/logout)
-- [ ] API CRUD Finances + validation
-- [ ] API CRUD Todos + validation
-- [ ] Route protection (middleware auth:sanctum, role check admin)
+- [x] Setup Laravel Sanctum (register/login/logout) — sudah diverifikasi via curl (register, login, /api/user protected)
+- [x] API CRUD Finances + validation — CRUD via apiResource, ownership check per user
+- [x] API CRUD Todos + validation — CRUD via apiResource, ownership check per user
+- [x] Route protection (middleware auth:sanctum) — semua route CRUD di dalam grup auth:sanctum
+- [ ] Role check khusus admin (belum diimplementasi, belum ada endpoint admin)
 
 ## Langkah 3: Integrasi WhatsApp Gateway & Scheduler
-- [ ] Pilih & pasang library gateway WA (Baileys/Wwebjs/Foni API)
-- [ ] WhatsApp Notification Service
-- [ ] Scheduler command (`* * * * *`) — scan todos pending sesuai reminder_time
-- [ ] Template pesan dinamis (nama tugas + saldo)
-- [ ] Logging ke `wa_logs` (cegah duplikat pengiriman)
+- [x] Pilih & pasang library gateway WA — Baileys (Node.js service di `whatsapp-service/`, port 3001)
+- [x] WhatsApp Notification Service — `app/Services/WhatsAppNotificationService.php`
+- [x] Scheduler command — `app:send-whatsapp-reminders` (`routes/console.php`, `everyMinute()`)
+- [x] Template pesan dinamis (nama tugas + saldo)
+- [x] Logging ke `wa_logs` (cegah duplikat pengiriman dalam menit yang sama)
+- [x] Fix penting: `APP_TIMEZONE` di `.env` diubah dari `UTC` ke `Asia/Jakarta` — tanpa ini reminder_time tidak akan pernah cocok dengan waktu server
+- [ ] **Catatan risiko (belum solved, sifatnya inherent):** koneksi Baileys bisa auto-logout / pesan silently dropped kalau sesi baru di-link lalu langsung dipakai kirim beruntun (dideteksi WhatsApp sebagai spam). Kode & alur teknis sudah diverifikasi benar (message key + status PENDING dikembalikan, log wa_logs tercatat). Perlu testing lebih santai (jeda antar pesan) saat lanjut development, dan pertimbangkan provider resmi/berbayar kalau mau reliability lebih tinggi di production.
 
 ## Langkah 4: Frontend Mobile-First (React.js)
 - [ ] Setup React.js + Tailwind CSS + Lucide React (icon set)
