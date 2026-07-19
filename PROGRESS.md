@@ -29,12 +29,13 @@ Referensi: [PRD_SakuTask.md](PRD_SakuTask.md) (roadmap bagian 7)
 - [ ] **Catatan risiko (belum solved, sifatnya inherent):** koneksi Baileys bisa auto-logout / pesan silently dropped kalau sesi baru di-link lalu langsung dipakai kirim beruntun (dideteksi WhatsApp sebagai spam). Kode & alur teknis sudah diverifikasi benar (message key + status PENDING dikembalikan, log wa_logs tercatat). Perlu testing lebih santai (jeda antar pesan) saat lanjut development, dan pertimbangkan provider resmi/berbayar kalau mau reliability lebih tinggi di production.
 
 ## Langkah 4: Frontend Mobile-First (React.js)
-- [ ] Setup React.js + Tailwind CSS + Lucide React (icon set)
-- [ ] Layout mobile-first
-- [ ] Halaman auth (register/login)
-- [ ] Dashboard keuangan (grafik + saldo)
-- [ ] Halaman to-do list (CRUD + toggle check)
-- [ ] Integrasi ke API Laravel
+- [x] Setup React.js + Tailwind CSS + Lucide React (icon set)
+- [x] Layout mobile-first — bottom nav di mobile, sidebar responsive di desktop (`lg:` breakpoint)
+- [x] Halaman auth (register/login) — `pages/Login.jsx`, `pages/Register.jsx`, `context/AuthContext.jsx`
+- [x] Dashboard keuangan (grafik + saldo) — `pages/Dashboard.jsx`: hero saldo, KPI pemasukan/pengeluaran, bar chart kategori
+- [x] Halaman to-do list (CRUD + toggle check) — `pages/Todos.jsx`
+- [x] Halaman keuangan (CRUD) — `pages/Finances.jsx`
+- [x] Integrasi ke API Laravel — `lib/api.js` (axios + Bearer token interceptor)
 
 ## Belum masuk PRD tapi perlu diputuskan nanti
 - [ ] Dashboard Admin (statistik, monitoring WA gateway) — role Admin disebut di §3 tapi belum ada detail fungsional
