@@ -8,6 +8,12 @@
 | **Versi PRD** | v1.0 | **Target Device:** macOS (M1 Pro Development) |
 | **Tanggal** | 19 Juli 2026 | |
 
+> **Catatan revisi (19 Juli 2026):** Setelah implementasi awal, arah produk direvisi jadi **dua target aplikasi terpisah**:
+> 1. **Aplikasi Desktop (fokus saat ini)** — web app yang sama (React + Tailwind), dibungkus jadi **PWA (Progressive Web App)** supaya bisa di-*install* dan dibuka sebagai aplikasi mandiri (mode `standalone`, tanpa address bar/tab browser), sesuai preferensi pemilik project yang terbiasa membuka aplikasi langsung tanpa masuk ke Chrome.
+> 2. **Aplikasi Mobile (fase berikutnya, belum digarap)** — versi khusus mobile (kemungkinan native/React Native), dikerjakan setelah versi desktop stabil.
+>
+> Layout mobile-first yang sudah dibangun (bottom nav) tetap dipertahankan untuk kompatibilitas — PWA yang sama tetap bisa diinstall di HP — tapi pengembangan fitur baru untuk sementara fokus ke pengalaman desktop.
+
 ---
 
 ## 1. Latar Belakang & Masalah

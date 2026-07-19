@@ -37,6 +37,19 @@ Referensi: [PRD_SakuTask.md](PRD_SakuTask.md) (roadmap bagian 7)
 - [x] Halaman keuangan (CRUD) — `pages/Finances.jsx`
 - [x] Integrasi ke API Laravel — `lib/api.js` (axios + Bearer token interceptor)
 
+## Langkah 5: PWA Desktop App (revisi arah, 19 Juli 2026)
+- [x] Buat ikon app (`frontend/public/icon.svg` + PNG 192x192 & 512x512)
+- [x] Install & konfigurasi `vite-plugin-pwa`
+- [x] Manifest: nama, theme color, `display: standalone`
+- [x] Build & tes install sebagai app desktop (buka tanpa address bar) — berhasil di-install & dites
+- [ ] (Nanti, belum digarap) Aplikasi mobile terpisah
+
+## Polish UX (19 Juli 2026)
+- [x] `lib/api.js`: interceptor error jaringan/API jadi pesan yang ramah (`friendlyMessage`)
+- [x] `components/Spinner.jsx`: loading indicator reusable
+- [x] Loading state di Dashboard, Finances, Todos saat fetch data
+- [x] Cegah submit ganda (disable tombol + teks "Menyimpan.../Memproses...") di semua form: Login, Register, Todos, Finances
+
 ## Belum masuk PRD tapi perlu diputuskan nanti
 - [ ] Dashboard Admin (statistik, monitoring WA gateway) — role Admin disebut di §3 tapi belum ada detail fungsional
 - [ ] Deployment/hosting plan
