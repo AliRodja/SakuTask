@@ -21,3 +21,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# WhatsApp gateway (Baileys) — session credentials, never commit
+/auth_info
+/whatsapp-service/auth_info
+/whatsapp-service/node_modules
