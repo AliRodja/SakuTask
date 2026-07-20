@@ -63,37 +63,38 @@ export default function Finances() {
   }
 
   return (
-    <div>
+    <div style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">Keuangan</h2>
+        <h2 className="text-lg font-semibold text-hi">Keuangan</h2>
         <button
           onClick={() => setShowForm((v) => !v)}
-          className="flex items-center gap-1 bg-blue-600 text-white text-sm rounded-lg px-3 py-1.5"
+          className="gradient-btn text-sm px-3 py-1.5"
         >
-          <Plus className="w-4 h-4" /> Tambah
+          <Plus className="w-4 h-4" /> <span>Tambah</span>
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl p-4 mb-4 space-y-3 shadow-sm">
-          {error && <p className="text-sm text-red-600">{error}</p>}
+        <form onSubmit={handleSubmit} className="glass-card p-4 mb-4 space-y-3">
+          {error && (
+            <div className="app-error" role="alert">
+              <div className="app-error-dot" />
+              <span>{error}</span>
+            </div>
+          )}
 
           <div className="flex gap-2">
             <button
               type="button"
               onClick={() => setForm({ ...form, type: 'in' })}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium border ${
-                form.type === 'in' ? 'bg-green-600 text-white border-green-600' : 'border-gray-300 text-gray-600'
-              }`}
+              className={`ghost-btn flex-1 py-2 text-sm ${form.type === 'in' ? 'ghost-btn-active-in' : ''}`}
             >
               Pemasukan
             </button>
             <button
               type="button"
               onClick={() => setForm({ ...form, type: 'out' })}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium border ${
-                form.type === 'out' ? 'bg-red-600 text-white border-red-600' : 'border-gray-300 text-gray-600'
-              }`}
+              className={`ghost-btn flex-1 py-2 text-sm ${form.type === 'out' ? 'ghost-btn-active-out' : ''}`}
             >
               Pengeluaran
             </button>
@@ -104,17 +105,17 @@ export default function Finances() {
             placeholder="Nominal (Rp)"
             value={form.amount}
             onChange={(e) => setForm({ ...form, amount: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
             required
           />
 
           <select
             value={form.category}
             onChange={(e) => setForm({ ...form, category: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
           >
             {categories.map((c) => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c} value={c} className="bg-[#14162a]">{c}</option>
             ))}
           </select>
 
@@ -122,23 +123,19 @@ export default function Finances() {
             placeholder="Catatan (opsional)"
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
           />
 
           <input
             type="date"
             value={form.date}
             onChange={(e) => setForm({ ...form, date: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
             required
           />
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium disabled:opacity-50"
-          >
-            {submitting ? 'Menyimpan...' : 'Simpan'}
+          <button type="submit" disabled={submitting} className="gradient-btn w-full py-2.5 text-sm">
+            <span>{submitting ? 'Menyimpan...' : 'Simpan'}</span>
           </button>
         </form>
       )}
@@ -148,32 +145,32 @@ export default function Finances() {
       ) : (
         <ul className="space-y-2">
           {finances.map((f) => (
-            <li key={f.id} className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm">
+            <li key={f.id} className="glass-card flex items-center gap-3 p-3">
               {f.type === 'in' ? (
-                <ArrowUpCircle className="w-5 h-5 text-green-600 shrink-0" />
+                <ArrowUpCircle className="w-5 h-5 text-emerald-400 shrink-0" />
               ) : (
-                <ArrowDownCircle className="w-5 h-5 text-red-600 shrink-0" />
+                <ArrowDownCircle className="w-5 h-5 text-rose-400 shrink-0" />
               )}
 
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900">{f.category}</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-sm font-medium text-hi">{f.category}</p>
+                <p className="text-xs text-faint">
                   {f.date?.slice(0, 10)} {f.description ? `· ${f.description}` : ''}
                 </p>
               </div>
 
-              <p className={`text-sm font-semibold ${f.type === 'in' ? 'text-green-600' : 'text-red-600'}`}>
+              <p className={`text-sm font-semibold ${f.type === 'in' ? 'text-emerald-400' : 'text-rose-400'}`}>
                 {f.type === 'in' ? '+' : '-'}{formatRupiah(f.amount)}
               </p>
 
-              <button onClick={() => removeFinance(f.id)} className="text-gray-300 hover:text-red-600">
+              <button onClick={() => removeFinance(f.id)} className="text-faint hover:text-rose-400 transition-colors">
                 <Trash2 className="w-4 h-4" />
               </button>
             </li>
           ))}
 
           {finances.length === 0 && (
-            <p className="text-sm text-gray-400 text-center py-8">Belum ada transaksi.</p>
+            <p className="text-sm text-faint text-center py-8">Belum ada transaksi.</p>
           )}
         </ul>
       )}

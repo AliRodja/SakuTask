@@ -56,47 +56,48 @@ export default function Todos() {
   }
 
   return (
-    <div>
+    <div style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">Tugas Harian</h2>
+        <h2 className="text-lg font-semibold text-hi">Tugas Harian</h2>
         <button
           onClick={() => setShowForm((v) => !v)}
-          className="flex items-center gap-1 bg-blue-600 text-white text-sm rounded-lg px-3 py-1.5"
+          className="gradient-btn text-sm px-3 py-1.5"
         >
-          <Plus className="w-4 h-4" /> Tambah
+          <Plus className="w-4 h-4" /> <span>Tambah</span>
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl p-4 mb-4 space-y-3 shadow-sm">
-          {error && <p className="text-sm text-red-600">{error}</p>}
+        <form onSubmit={handleSubmit} className="glass-card p-4 mb-4 space-y-3">
+          {error && (
+            <div className="app-error" role="alert">
+              <div className="app-error-dot" />
+              <span>{error}</span>
+            </div>
+          )}
           <input
             placeholder="Nama tugas"
             value={form.task_name}
             onChange={(e) => setForm({ ...form, task_name: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
             required
           />
           <input
             type="date"
             value={form.due_date}
             onChange={(e) => setForm({ ...form, due_date: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
             required
           />
           <input
             type="time"
             value={form.reminder_time}
             onChange={(e) => setForm({ ...form, reminder_time: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            className="app-input"
             required
           />
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium disabled:opacity-50"
-          >
-            {submitting ? 'Menyimpan...' : 'Simpan'}
+          <button type="submit" disabled={submitting} className="gradient-btn w-full py-2.5 text-sm">
+            <span>{submitting ? 'Menyimpan...' : 'Simpan'}</span>
           </button>
         </form>
       )}
@@ -106,14 +107,15 @@ export default function Todos() {
       ) : (
         <ul className="space-y-2">
           {todos.map((todo) => (
-            <li key={todo.id} className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm">
+            <li key={todo.id} className="glass-card flex items-center gap-3 p-3">
               <button
                 onClick={() => toggleStatus(todo)}
-                className={`w-6 h-6 shrink-0 rounded-full border flex items-center justify-center ${
+                className="w-6 h-6 shrink-0 rounded-full border flex items-center justify-center transition-colors"
+                style={
                   todo.status === 'completed'
-                    ? 'bg-green-600 border-green-600 text-white'
-                    : 'border-gray-300'
-                }`}
+                    ? { background: 'var(--color-success)', borderColor: 'var(--color-success)', color: '#fff' }
+                    : { borderColor: 'rgba(255,255,255,0.2)' }
+                }
               >
                 {todo.status === 'completed' && <Check className="w-4 h-4" />}
               </button>
@@ -121,24 +123,24 @@ export default function Todos() {
               <div className="flex-1 min-w-0">
                 <p
                   className={`text-sm font-medium ${
-                    todo.status === 'completed' ? 'line-through text-gray-400' : 'text-gray-900'
+                    todo.status === 'completed' ? 'line-through text-faint' : 'text-hi'
                   }`}
                 >
                   {todo.task_name}
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-faint">
                   {todo.due_date?.slice(0, 10)} · {todo.reminder_time?.slice(0, 5)}
                 </p>
               </div>
 
-              <button onClick={() => removeTodo(todo.id)} className="text-gray-300 hover:text-red-600">
+              <button onClick={() => removeTodo(todo.id)} className="text-faint hover:text-rose-400 transition-colors">
                 <Trash2 className="w-4 h-4" />
               </button>
             </li>
           ))}
 
           {todos.length === 0 && (
-            <p className="text-sm text-gray-400 text-center py-8">Belum ada tugas.</p>
+            <p className="text-sm text-faint text-center py-8">Belum ada tugas.</p>
           )}
         </ul>
       )}

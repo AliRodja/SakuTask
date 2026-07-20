@@ -55,48 +55,51 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm p-6">
-        <p className="text-sm text-gray-500 mb-1">Sisa Saldo</p>
-        <p className={`text-5xl font-semibold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+      <div className="glass-card p-6">
+        <p className="text-sm text-muted mb-1">Sisa Saldo</p>
+        <p className={`text-5xl font-semibold ${balance >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
           {formatRupiah(balance)}
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-white rounded-2xl shadow-sm p-4">
-          <div className="flex items-center gap-2 text-green-600 mb-1">
+        <div className="glass-card p-4">
+          <div className="flex items-center gap-2 text-emerald-400 mb-1">
             <ArrowUpCircle className="w-4 h-4" />
-            <span className="text-xs text-gray-500">Pemasukan bulan ini</span>
+            <span className="text-xs text-muted">Pemasukan bulan ini</span>
           </div>
-          <p className="text-lg font-semibold text-gray-900">{formatRupiah(monthIncome)}</p>
+          <p className="text-lg font-semibold text-hi">{formatRupiah(monthIncome)}</p>
         </div>
-        <div className="bg-white rounded-2xl shadow-sm p-4">
-          <div className="flex items-center gap-2 text-red-600 mb-1">
+        <div className="glass-card p-4">
+          <div className="flex items-center gap-2 text-rose-400 mb-1">
             <ArrowDownCircle className="w-4 h-4" />
-            <span className="text-xs text-gray-500">Pengeluaran bulan ini</span>
+            <span className="text-xs text-muted">Pengeluaran bulan ini</span>
           </div>
-          <p className="text-lg font-semibold text-gray-900">{formatRupiah(monthExpense)}</p>
+          <p className="text-lg font-semibold text-hi">{formatRupiah(monthExpense)}</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm p-4">
-        <p className="text-sm font-medium text-gray-900 mb-4">Pengeluaran per Kategori (bulan ini)</p>
+      <div className="glass-card p-4">
+        <p className="text-sm font-medium text-hi mb-4">Pengeluaran per Kategori (bulan ini)</p>
 
         {categoryTotals.length === 0 && (
-          <p className="text-sm text-gray-400 text-center py-6">Belum ada pengeluaran bulan ini.</p>
+          <p className="text-sm text-faint text-center py-6">Belum ada pengeluaran bulan ini.</p>
         )}
 
         <div className="space-y-3">
           {categoryTotals.map(([category, amount]) => (
             <div key={category}>
-              <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+              <div className="flex items-center justify-between text-xs text-mid mb-1">
                 <span>{category}</span>
-                <span className="text-gray-900 font-medium">{formatRupiah(amount)}</span>
+                <span className="text-hi font-medium">{formatRupiah(amount)}</span>
               </div>
-              <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-3 rounded-full overflow-hidden bg-white/6">
                 <div
-                  className="h-full bg-blue-600 rounded-full"
-                  style={{ width: `${(amount / maxCategory) * 100}%` }}
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${(amount / maxCategory) * 100}%`,
+                    background: 'linear-gradient(90deg, var(--color-primary), var(--color-secondary))',
+                  }}
                 />
               </div>
             </div>
