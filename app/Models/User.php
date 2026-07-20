@@ -36,6 +36,11 @@ public function todos()
     return $this->hasMany(Todo::class);
 }
 
+public function waLogs()
+{
+    return $this->hasMany(WaLog::class);
+}
+
     /**
      * The attributes that should be hidden for serialization.
      *

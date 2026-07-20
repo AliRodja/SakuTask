@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Finances from './pages/Finances';
 import Todos from './pages/Todos';
+import Search from './pages/Search';
+import Notifications from './pages/Notifications';
 import Layout from './components/Layout';
 
 function ProtectedRoute({ children }) {
@@ -27,6 +29,8 @@ function AppRoutes() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/finances" element={<Finances />} />
         <Route path="/todos" element={<Todos />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Route>
     </Routes>
   );
