@@ -18,8 +18,9 @@
   --bg-base: #0a0a1a;
 }
 
-body {
+html, body {
   background: var(--bg-base);
+  overflow-x: hidden;
 }
 
 /* ── Animated background (orbs + grid) — reused behind the app shell ── */
