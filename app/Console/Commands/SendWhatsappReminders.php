@@ -24,6 +24,10 @@ class SendWhatsappReminders extends Command
             ->get();
 
         foreach ($todos as $todo) {
+            if (! $todo->user->wa_notifications_enabled) {
+                continue;
+            }
+
             $alreadySent = WaLog::where('todo_id', $todo->id)
                 ->where('status', 'sent')
                 ->whereBetween('sent_at', [$now->copy()->startOfMinute(), $now->copy()->endOfMinute()])

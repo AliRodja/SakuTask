@@ -15,4 +15,13 @@ class WhatsAppNotificationService
 
         return $response->successful() && $response->json('success') === true;
     }
+
+    public function checkConnection(string $number): bool
+    {
+        $response = Http::timeout(10)->get(config('services.whatsapp.url') . "/check/{$number}");
+
+        return $response->successful()
+            && $response->json('success') === true
+            && $response->json('result.exists') === true;
+    }
 }

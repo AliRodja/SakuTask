@@ -24,6 +24,7 @@ class User extends Authenticatable
     'password',
     'whatsapp_number',
     'role',
+    'wa_notifications_enabled',
 ];
 
 public function finances()
@@ -61,6 +62,7 @@ public function waLogs()
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'wa_notifications_enabled' => 'boolean',
         ];
     }
 }
