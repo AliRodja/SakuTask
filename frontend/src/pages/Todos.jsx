@@ -114,7 +114,7 @@ export default function Todos() {
                 style={
                   todo.status === 'completed'
                     ? { background: 'var(--color-success)', borderColor: 'var(--color-success)', color: '#fff' }
-                    : { borderColor: 'rgba(255,255,255,0.2)' }
+                    : { borderColor: 'rgba(var(--ink-rgb),0.2)' }
                 }
               >
                 {todo.status === 'completed' && <Check className="w-4 h-4" />}

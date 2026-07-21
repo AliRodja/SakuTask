@@ -1,8 +1,12 @@
 /* ═══════════════════════════════════════════
-   SHARED APP THEME — dark glassmorphism
+   SHARED APP THEME — dark glassmorphism (+ light mode)
    Extracted from the Login/Register redesign so the
    same look (colors, gradients, glass cards) is reused
    across Dashboard, Finances, Todos, and the Layout shell.
+
+   Theme switching: set [data-theme="light"] on <html> to
+   flip the surface/ink variables below. Everything else
+   (brand gradient, category colors, orbs) stays constant.
    ═══════════════════════════════════════════ */
 
 :root {
@@ -15,7 +19,21 @@
   --color-success-light: #4ade80;
   --color-danger: #ef4444;
   --color-danger-light: #f87171;
+
+  /* Theme surfaces — dark (default) */
   --bg-base: #0a0a1a;
+  --card-rgb: 20, 20, 38;
+  --panel-rgb: 15, 15, 30;
+  --ink-rgb: 255, 255, 255;
+  --ink-solid: #ffffff;
+}
+
+[data-theme='light'] {
+  --bg-base: #f3f4f9;
+  --card-rgb: 255, 255, 255;
+  --panel-rgb: 255, 255, 255;
+  --ink-rgb: 15, 15, 30;
+  --ink-solid: #14142b;
 }
 
 html, body {
@@ -36,8 +54,8 @@ html, body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(var(--ink-rgb),0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--ink-rgb),0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 .app-orb {
@@ -66,24 +84,24 @@ html, body {
 
 /* ── Glass surfaces ── */
 .glass-card {
-  background: rgba(20, 20, 38, 0.7);
+  background: rgba(var(--card-rgb), 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(var(--ink-rgb),0.08);
   border-radius: 18px;
 }
 .glass-panel {
-  background: rgba(15, 15, 30, 0.8);
+  background: rgba(var(--panel-rgb), 0.8);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
-  border-color: rgba(255,255,255,0.08);
+  border-color: rgba(var(--ink-rgb),0.08);
 }
 
-/* ── Text hierarchy on dark surfaces ── */
-.text-hi { color: rgba(255,255,255,0.92); }
-.text-mid { color: rgba(255,255,255,0.6); }
-.text-muted { color: rgba(255,255,255,0.4); }
-.text-faint { color: rgba(255,255,255,0.28); }
+/* ── Text hierarchy on dark/light surfaces ── */
+.text-hi { color: rgba(var(--ink-rgb),0.92); }
+.text-mid { color: rgba(var(--ink-rgb),0.6); }
+.text-muted { color: rgba(var(--ink-rgb),0.4); }
+.text-faint { color: rgba(var(--ink-rgb),0.28); }
 
 /* ── Gradient logo mark ── */
 .gradient-logo {
@@ -128,9 +146,9 @@ html, body {
 
 /* ── Outline / ghost button (secondary actions, e.g. type toggles) ── */
 .ghost-btn {
-  border: 1.5px solid rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(var(--ink-rgb),0.1);
   background: transparent;
-  color: rgba(255,255,255,0.5);
+  color: rgba(var(--ink-rgb),0.5);
   border-radius: 12px;
   font-weight: 500;
   font-family: 'Inter', sans-serif;
@@ -138,9 +156,9 @@ html, body {
   transition: all 0.2s;
 }
 .ghost-btn:hover {
-  border-color: rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.04);
+  border-color: rgba(var(--ink-rgb),0.2);
+  color: rgba(var(--ink-rgb),0.85);
+  background: rgba(var(--ink-rgb),0.04);
 }
 .ghost-btn.ghost-btn-active-in {
   border-color: var(--color-success);
@@ -153,22 +171,22 @@ html, body {
   background: rgba(239,68,68,0.18);
 }
 
-/* ── Dark input ── */
+/* ── Dark/light input ── */
 .app-input {
   width: 100%;
   padding: 12px 14px;
   border-radius: 12px;
-  border: 1.5px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
-  color: #fff;
+  border: 1.5px solid rgba(var(--ink-rgb),0.1);
+  background: rgba(var(--ink-rgb),0.04);
+  color: var(--ink-solid);
   font-size: 0.9375rem;
   font-family: 'Inter', sans-serif;
   outline: none;
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
 }
-.app-input::placeholder { color: rgba(255,255,255,0.3); }
-.app-input:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
+.app-input::placeholder { color: rgba(var(--ink-rgb),0.3); }
+.app-input:hover { border-color: rgba(var(--ink-rgb),0.2); background: rgba(var(--ink-rgb),0.06); }
 .app-input:focus {
   border-color: var(--color-primary);
   background: rgba(99,102,241,0.06);
@@ -177,12 +195,12 @@ html, body {
 
 /* ── Nav items (sidebar + bottom nav) ── */
 .nav-item {
-  color: rgba(255,255,255,0.45);
+  color: rgba(var(--ink-rgb),0.45);
   transition: color 0.2s, background 0.2s;
 }
-.nav-item:hover { color: rgba(255,255,255,0.75); }
+.nav-item:hover { color: rgba(var(--ink-rgb),0.75); }
 .nav-item-active {
-  color: #fff;
+  color: var(--ink-solid);
   background: rgba(99,102,241,0.16);
 }
 
@@ -207,7 +225,7 @@ html, body {
 
 /* ── Spinner ── */
 .app-spinner {
-  border: 2px solid rgba(255,255,255,0.15);
+  border: 2px solid rgba(var(--ink-rgb),0.15);
   border-top-color: var(--color-primary-light);
   border-radius: 50%;
   animation: app-spin 0.7s linear infinite;

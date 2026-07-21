@@ -290,7 +290,7 @@ export default function Dashboard() {
 
             {todosToday.length === 0 && (
               <div className="dash-empty">
-                <ListTodo className="w-5 h-5" style={{ color: 'rgba(255,255,255,0.15)' }} />
+                <ListTodo className="w-5 h-5" style={{ color: 'rgba(var(--ink-rgb),0.15)' }} />
                 <p>Tidak ada tugas hari ini</p>
               </div>
             )}
@@ -336,7 +336,7 @@ export default function Dashboard() {
 
             {recentTransactions.length === 0 && (
               <div className="dash-empty">
-                <CreditCard className="w-5 h-5" style={{ color: 'rgba(255,255,255,0.15)' }} />
+                <CreditCard className="w-5 h-5" style={{ color: 'rgba(var(--ink-rgb),0.15)' }} />
                 <p>Belum ada transaksi</p>
               </div>
             )}
@@ -376,7 +376,7 @@ export default function Dashboard() {
 
         {categoryTotals.length === 0 ? (
           <div className="dash-empty" style={{ padding: '32px 0' }}>
-            <BarChart3 className="w-5 h-5" style={{ color: 'rgba(255,255,255,0.15)' }} />
+            <BarChart3 className="w-5 h-5" style={{ color: 'rgba(var(--ink-rgb),0.15)' }} />
             <p>Belum ada pengeluaran bulan ini</p>
           </div>
         ) : (
@@ -443,7 +443,7 @@ const dashStyles = `
   .dash-greeting {
     font-size: 1.125rem;
     font-weight: 700;
-    color: rgba(255,255,255,0.92);
+    color: rgba(var(--ink-rgb),0.92);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -471,7 +471,7 @@ const dashStyles = `
   }
   .dash-date {
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.35);
+    color: rgba(var(--ink-rgb),0.35);
     margin-top: 2px;
   }
 
@@ -484,9 +484,9 @@ const dashStyles = `
   .dash-icon-btn {
     width: 36px; height: 36px;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.04);
-    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(var(--ink-rgb),0.08);
+    background: rgba(var(--ink-rgb),0.04);
+    color: rgba(var(--ink-rgb),0.45);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -495,9 +495,9 @@ const dashStyles = `
     position: relative;
   }
   .dash-icon-btn:hover {
-    border-color: rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.85);
-    background: rgba(255,255,255,0.08);
+    border-color: rgba(var(--ink-rgb),0.15);
+    color: rgba(var(--ink-rgb),0.85);
+    background: rgba(var(--ink-rgb),0.08);
   }
 
   .dash-notif-dot {
@@ -539,14 +539,14 @@ const dashStyles = `
     transform: translateY(-1px);
   }
   .dash-action-secondary {
-    background: rgba(255,255,255,0.05);
-    color: rgba(255,255,255,0.55);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(var(--ink-rgb),0.05);
+    color: rgba(var(--ink-rgb),0.55);
+    border: 1px solid rgba(var(--ink-rgb),0.08);
   }
   .dash-action-secondary:hover {
-    background: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.85);
-    border-color: rgba(255,255,255,0.15);
+    background: rgba(var(--ink-rgb),0.08);
+    color: rgba(var(--ink-rgb),0.85);
+    border-color: rgba(var(--ink-rgb),0.15);
   }
 
   /* ── Balance Hero ── */
@@ -576,7 +576,7 @@ const dashStyles = `
   }
   .dash-balance-label {
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(var(--ink-rgb),0.5);
     font-weight: 500;
     margin-bottom: 4px;
   }
@@ -593,17 +593,17 @@ const dashStyles = `
   .dash-balance-icon {
     width: 48px; height: 48px;
     border-radius: 14px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(var(--ink-rgb),0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255,255,255,0.6);
+    color: rgba(var(--ink-rgb),0.6);
     flex-shrink: 0;
   }
   .dash-balance-bottom {
     margin-top: 20px;
     padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(var(--ink-rgb),0.08);
   }
   .dash-balance-status {
     display: flex;
@@ -622,16 +622,16 @@ const dashStyles = `
   .dash-kpi-card {
     border-radius: 16px;
     padding: 16px;
-    background: rgba(20, 20, 42, 0.6);
+    background: rgba(var(--card-rgb), 0.6);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(var(--ink-rgb),0.06);
     display: flex;
     align-items: center;
     gap: 14px;
     transition: border-color 0.2s;
   }
   .dash-kpi-card:hover {
-    border-color: rgba(255,255,255,0.12);
+    border-color: rgba(var(--ink-rgb),0.12);
   }
   .dash-kpi-icon {
     width: 44px; height: 44px;
@@ -652,7 +652,7 @@ const dashStyles = `
   .dash-kpi-info { min-width: 0; }
   .dash-kpi-label {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.35);
+    color: rgba(var(--ink-rgb),0.35);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -661,12 +661,12 @@ const dashStyles = `
   .dash-kpi-value {
     font-size: 1.125rem;
     font-weight: 700;
-    color: rgba(255,255,255,0.92);
+    color: rgba(var(--ink-rgb),0.92);
     letter-spacing: -0.01em;
   }
   .dash-kpi-period {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.25);
+    color: rgba(var(--ink-rgb),0.25);
     margin-top: 1px;
   }
 
@@ -674,13 +674,13 @@ const dashStyles = `
   .dash-card {
     border-radius: 18px;
     padding: 20px;
-    background: rgba(20, 20, 42, 0.6);
+    background: rgba(var(--card-rgb), 0.6);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(var(--ink-rgb),0.06);
     transition: border-color 0.2s;
   }
   .dash-card:hover {
-    border-color: rgba(255,255,255,0.1);
+    border-color: rgba(var(--ink-rgb),0.1);
   }
   .dash-card-header {
     display: flex;
@@ -694,7 +694,7 @@ const dashStyles = `
     gap: 8px;
     font-size: 0.875rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.88);
+    color: rgba(var(--ink-rgb),0.88);
   }
   .dash-card-link {
     display: inline-flex;
@@ -731,7 +731,7 @@ const dashStyles = `
   }
   .dash-todo-progress-text {
     font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
+    color: rgba(var(--ink-rgb),0.4);
   }
   .dash-todo-progress-pct {
     font-size: 0.75rem;
@@ -741,7 +741,7 @@ const dashStyles = `
   .dash-progress-track {
     height: 6px;
     border-radius: 99px;
-    background: rgba(255,255,255,0.06);
+    background: rgba(var(--ink-rgb),0.06);
     overflow: hidden;
   }
   .dash-progress-fill {
@@ -769,12 +769,12 @@ const dashStyles = `
     text-align: left;
     transition: background 0.15s;
   }
-  .dash-todo-item:hover { background: rgba(255,255,255,0.04); }
+  .dash-todo-item:hover { background: rgba(var(--ink-rgb),0.04); }
 
   .dash-todo-check {
     width: 20px; height: 20px;
     border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(var(--ink-rgb),0.18);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -792,18 +792,18 @@ const dashStyles = `
     flex: 1;
     min-width: 0;
     font-size: 0.875rem;
-    color: rgba(255,255,255,0.72);
+    color: rgba(var(--ink-rgb),0.72);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   .dash-todo-name-done {
     text-decoration: line-through;
-    color: rgba(255,255,255,0.25);
+    color: rgba(var(--ink-rgb),0.25);
   }
   .dash-todo-time {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.25);
+    color: rgba(var(--ink-rgb),0.25);
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
   }
@@ -835,14 +835,14 @@ const dashStyles = `
   .dash-txn-cat {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.72);
+    color: rgba(var(--ink-rgb),0.72);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   .dash-txn-date {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.28);
+    color: rgba(var(--ink-rgb),0.28);
   }
   .dash-txn-amount {
     font-size: 0.8125rem;
@@ -855,11 +855,11 @@ const dashStyles = `
   .dash-weekly {
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(var(--ink-rgb),0.06);
   }
   .dash-weekly-label {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(var(--ink-rgb),0.3);
     font-weight: 500;
     margin-bottom: 10px;
     text-transform: uppercase;
@@ -888,7 +888,7 @@ const dashStyles = `
   .dash-weekly-bar {
     width: 100%;
     border-radius: 4px 4px 2px 2px;
-    background: rgba(255,255,255,0.08);
+    background: rgba(var(--ink-rgb),0.08);
     transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .dash-weekly-bar-today {
@@ -897,7 +897,7 @@ const dashStyles = `
   }
   .dash-weekly-day {
     font-size: 0.5625rem;
-    color: rgba(255,255,255,0.25);
+    color: rgba(var(--ink-rgb),0.25);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -906,9 +906,9 @@ const dashStyles = `
   /* ── Category Breakdown ── */
   .dash-category-month {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(var(--ink-rgb),0.3);
     font-weight: 500;
-    background: rgba(255,255,255,0.04);
+    background: rgba(var(--ink-rgb),0.04);
     padding: 3px 10px;
     border-radius: 99px;
   }
@@ -931,13 +931,13 @@ const dashStyles = `
   }
   .dash-category-name {
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.65);
+    color: rgba(var(--ink-rgb),0.65);
     font-weight: 500;
     flex: 1;
   }
   .dash-category-pct {
     font-size: 0.6875rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(var(--ink-rgb),0.3);
     font-variant-numeric: tabular-nums;
   }
   .dash-category-bar-row {
@@ -949,7 +949,7 @@ const dashStyles = `
     flex: 1;
     height: 8px;
     border-radius: 99px;
-    background: rgba(255,255,255,0.04);
+    background: rgba(var(--ink-rgb),0.04);
     overflow: hidden;
   }
   .dash-category-fill {
@@ -960,7 +960,7 @@ const dashStyles = `
   .dash-category-amount {
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.75);
+    color: rgba(var(--ink-rgb),0.75);
     min-width: 70px;
     text-align: right;
     font-variant-numeric: tabular-nums;
@@ -976,6 +976,6 @@ const dashStyles = `
   }
   .dash-empty p {
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.25);
+    color: rgba(var(--ink-rgb),0.25);
   }
 `;

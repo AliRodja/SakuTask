@@ -390,16 +390,16 @@ const reportStyles = `
     font-size: 0.8125rem;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.5);
+    background: rgba(var(--ink-rgb),0.04);
+    border: 1px solid rgba(var(--ink-rgb),0.08);
+    color: rgba(var(--ink-rgb),0.5);
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
   }
   .report-period-btn:hover {
-    color: rgba(255,255,255,0.85);
-    border-color: rgba(255,255,255,0.18);
+    color: rgba(var(--ink-rgb),0.85);
+    border-color: rgba(var(--ink-rgb),0.18);
   }
   .report-period-active {
     background: linear-gradient(135deg, #6366f1, #8b5cf6);
