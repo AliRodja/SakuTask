@@ -7,6 +7,7 @@ import Finances from './pages/Finances';
 import Todos from './pages/Todos';
 import Search from './pages/Search';
 import Notifications from './pages/Notifications';
+import Report from './pages/Report';
 import Layout from './components/Layout';
 
 function ProtectedRoute({ children }) {
@@ -31,6 +32,7 @@ function AppRoutes() {
         <Route path="/todos" element={<Todos />} />
         <Route path="/search" element={<Search />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/laporan" element={<Report />} />
       </Route>
     </Routes>
   );

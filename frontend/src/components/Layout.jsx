@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, Wallet, ListTodo, LogOut } from 'lucide-react';
+import { LayoutDashboard, Wallet, ListTodo, FileBarChart, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/finances', label: 'Keuangan', icon: Wallet },
   { to: '/todos', label: 'Tugas', icon: ListTodo },
+  { to: '/laporan', label: 'Laporan', icon: FileBarChart },
 ];
 
 export default function Layout() {
@@ -77,7 +78,7 @@ export default function Layout() {
 
         {/* Bottom nav — mobile only */}
         <nav className="fixed bottom-0 inset-x-0 glass-panel border-t lg:hidden">
-          <div className="max-w-md mx-auto grid grid-cols-3">
+          <div className="max-w-md mx-auto grid grid-cols-4">
             {navItems.map(({ to, label, icon: Icon }) => (
               <NavLink
                 key={to}
