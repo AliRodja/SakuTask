@@ -17,11 +17,16 @@ function ProtectedRoute({ children }) {
   return user ? children : <Navigate to="/login" replace />;
 }
 
+function GuestRoute({ children }) {
+  const { user } = useAuth();
+  return user ? <Navigate to="/" replace /> : children;
+}
+
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+      <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
       <Route
         element={
           <ProtectedRoute>

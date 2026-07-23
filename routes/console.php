@@ -8,4 +8,6 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('app:send-whatsapp-reminders')->everyMinute();
+Schedule::command('app:send-whatsapp-reminders')
+    ->everyMinute()
+    ->appendOutputTo(storage_path('logs/whatsapp-reminders.log'));
