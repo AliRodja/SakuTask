@@ -9,7 +9,7 @@ class Todo extends Model
 {
     /** @use HasFactory<\Database\Factories\TodoFactory> */
     protected $fillable = [
-    'user_id', 'task_name', 'status', 'due_date', 'reminder_time',
+    'user_id', 'task_name', 'category', 'description', 'status', 'due_date', 'reminder_time',
 ];
 
 protected $casts = [

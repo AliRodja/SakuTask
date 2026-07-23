@@ -17,6 +17,8 @@ class TodoController extends Controller
     {
         $validated = $request->validate([
             'task_name' => ['required', 'string', 'max:255'],
+            'category' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
             'due_date' => ['required', 'date'],
             'reminder_time' => ['required', 'date_format:H:i'],
         ]);
@@ -42,6 +44,8 @@ class TodoController extends Controller
 
         $validated = $request->validate([
             'task_name' => ['sometimes', 'string', 'max:255'],
+            'category' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
             'status' => ['sometimes', 'in:pending,completed'],
             'due_date' => ['sometimes', 'date'],
             'reminder_time' => ['sometimes', 'date_format:H:i'],

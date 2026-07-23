@@ -64,6 +64,21 @@ Referensi: [PRD_SakuTask.md](PRD_SakuTask.md) (roadmap bagian 7)
 - [x] Toggle notifikasi WA per-user (`wa_notifications_enabled`) — scheduler cek kolom ini sebelum kirim
 - [x] Fix penting #3: nomor WA format lokal (`0...`) sekarang otomatis dinormalisasi ke format internasional (`62...`) via mutator di `User` model — sebelumnya jadi bug berulang (3x kejadian di akun berbeda)
 
+## Redesign Keuangan + Polish Navigasi (24 Juli 2026)
+- [x] Redesign halaman `/finances` — hero saldo total (+ persentase perubahan vs bulan lalu), KPI pemasukan/pengeluaran bulanan, form + tabel transaksi dengan pagination, dan insight mingguan yang dihitung otomatis dari data transaksi (bukan teks statis)
+- [x] Kategori keuangan: ganti dropdown tetap jadi combobox live-search yang belajar dari riwayat kategori milik user sendiri (bukan lagi daftar hardcoded) — kategori baru otomatis jadi saran berikutnya
+- [x] Fix table overflow di tabel transaksi (mobile & desktop) supaya nominal tidak pernah kepotong
+- [x] `GuestRoute` di `App.jsx` — user yang sudah login otomatis diarahkan ke dashboard kalau membuka `/login` atau `/register` manual (sebelumnya bisa diakses lagi tanpa redirect)
+- [x] Sidebar desktop kini collapse jadi icon rail (logo + ikon saja) dan expand saat hover, gaya Instagram — `components/Layout.jsx`, tidak memengaruhi bottom nav mobile
+- [x] Fix: output command `app:send-whatsapp-reminders` diarahkan ke `storage/logs/whatsapp-reminders.log` (`routes/console.php`), sebelumnya dibuang ke `/dev/null` sehingga sukses/gagalnya reminder tidak pernah terlihat
+
+## Redesign Tugas (24 Juli 2026)
+- [x] Migration: tambah kolom `category` dan `description` (nullable) ke tabel `todos` + update `Todo` model & `TodoController` validation
+- [x] Redesign halaman `/todos` jadi "Manajemen Tugas" — kalender strip mingguan fungsional (klik tanggal untuk filter, navigasi minggu), kartu "Tambah Tugas Cepat" (nama + kategori + jam pengingat WA, tanggal ikut yang dipilih di kalender)
+- [x] Kategori tugas: combobox live-search yang sama seperti di Keuangan, belajar dari riwayat kategori milik user
+- [x] Kartu Progres Harian (persentase tugas selesai per tanggal terpilih), kartu Kategori (breakdown jumlah tugas per kategori), kartu Peringatan Berikutnya (pengingat WA terdekat + teks relatif, dihitung real-time) — semua dihitung dari data asli, bukan statis
+- [x] Toggle "Lihat Semua" vs "Fokus Hari Ini" untuk lihat seluruh tugas di luar tanggal terpilih
+
 ## Belum masuk PRD tapi perlu diputuskan nanti
 - [ ] Dashboard Admin (statistik, monitoring WA gateway) — role Admin disebut di §3 tapi belum ada detail fungsional
 - [ ] Deployment/hosting plan
