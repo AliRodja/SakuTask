@@ -11,7 +11,7 @@ import {
 import api from '../lib/api';
 import Spinner from '../components/Spinner';
 import { useAuth } from '../context/AuthContext';
-import { formatRupiah } from '../lib/format';
+import { formatRupiah, formatDateOnly } from '../lib/format';
 import { generateReportPdf } from '../lib/reportPdf';
 
 const CATEGORY_COLORS = [
@@ -35,10 +35,6 @@ const MONTH_LABELS_SHORT = [
   'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des',
 ];
 
-function toDateInputValue(date) {
-  return date.toISOString().slice(0, 10);
-}
-
 function isWithin(dateStr, start, end) {
   const d = new Date(dateStr);
   return d >= start && d <= end;
@@ -54,9 +50,9 @@ export default function Report() {
 
   const now = new Date();
   const [customStart, setCustomStart] = useState(
-    toDateInputValue(new Date(now.getFullYear(), now.getMonth(), 1))
+    formatDateOnly(new Date(now.getFullYear(), now.getMonth(), 1))
   );
-  const [customEnd, setCustomEnd] = useState(toDateInputValue(now));
+  const [customEnd, setCustomEnd] = useState(formatDateOnly(now));
 
   useEffect(() => {
     Promise.all([api.get('/finances'), api.get('/todos'), api.get('/wa-logs')])

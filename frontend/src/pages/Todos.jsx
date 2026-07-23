@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Plus, Check, Trash2 } from 'lucide-react';
 import api from '../lib/api';
 import Spinner from '../components/Spinner';
+import { formatDateOnly } from '../lib/format';
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
@@ -129,7 +130,7 @@ export default function Todos() {
                   {todo.task_name}
                 </p>
                 <p className="text-xs text-faint">
-                  {todo.due_date?.slice(0, 10)} · {todo.reminder_time?.slice(0, 5)}
+                  {todo.due_date && formatDateOnly(todo.due_date)} · {todo.reminder_time?.slice(0, 5)}
                 </p>
               </div>
 

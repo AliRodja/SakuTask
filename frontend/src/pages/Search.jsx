@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Search as SearchIcon, ListTodo, CreditCard, X } from 'lucide-react';
 import api from '../lib/api';
 import Spinner from '../components/Spinner';
-import { formatRupiah } from '../lib/format';
+import { formatRupiah, formatDateOnly } from '../lib/format';
 
 export default function Search() {
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ export default function Search() {
                 <div className="min-w-0 flex-1">
                   <p className="text-sm text-hi truncate">{t.task_name}</p>
                   <p className="text-xs text-faint">
-                    {t.due_date?.slice(0, 10)} · {t.reminder_time?.slice(0, 5)}
+                    {t.due_date && formatDateOnly(t.due_date)} · {t.reminder_time?.slice(0, 5)}
                   </p>
                 </div>
               </button>
@@ -109,7 +109,7 @@ export default function Search() {
                 <CreditCard className="w-4 h-4 shrink-0" style={{ color: 'var(--color-accent-cyan)' }} />
                 <div className="min-w-0 flex-1">
                   <p className="text-sm text-hi truncate">{f.category}</p>
-                  <p className="text-xs text-faint">{f.date?.slice(0, 10)}</p>
+                  <p className="text-xs text-faint">{f.date && formatDateOnly(f.date)}</p>
                 </div>
                 <span className={`text-sm font-semibold shrink-0 ${f.type === 'in' ? 'text-emerald-400' : 'text-rose-400'}`}>
                   {f.type === 'in' ? '+' : '-'}{formatRupiah(f.amount)}

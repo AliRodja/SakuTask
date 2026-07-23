@@ -50,7 +50,7 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#fb7185,#fdba74\" \"php artisan serve\" \"node whatsapp-service/index.js\" \"npm --prefix frontend run dev\" --names=laravel,whatsapp,frontend --kill-others-on-fail=false"
+            "npx concurrently -c \"#93c5fd,#fb7185,#fdba74,#c4b5fd\" \"php artisan serve\" \"php artisan schedule:work\" \"node whatsapp-service/index.js\" \"npm --prefix frontend run dev\" --names=laravel,scheduler,whatsapp,frontend --kill-others-on-fail=false"
         ]
     },
     "extra": {

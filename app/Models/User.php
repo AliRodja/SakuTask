@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,6 +41,26 @@ public function todos()
 public function waLogs()
 {
     return $this->hasMany(WaLog::class);
+}
+
+/**
+ * Normalize to international format (62...) whenever whatsapp_number is
+ * set, so local-format input (0...) never gets stored and silently
+ * breaks WhatsApp delivery.
+ */
+protected function whatsappNumber(): Attribute
+{
+    return Attribute::make(
+        set: function (string $value) {
+            $digits = preg_replace('/[^0-9]/', '', $value);
+
+            if (str_starts_with($digits, '0')) {
+                $digits = '62' . substr($digits, 1);
+            }
+
+            return $digits;
+        },
+    );
 }
 
     /**

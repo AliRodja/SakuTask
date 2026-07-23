@@ -26,7 +26,8 @@ Referensi: [PRD_SakuTask.md](PRD_SakuTask.md) (roadmap bagian 7)
 - [x] Template pesan dinamis (nama tugas + saldo)
 - [x] Logging ke `wa_logs` (cegah duplikat pengiriman dalam menit yang sama)
 - [x] Fix penting: `APP_TIMEZONE` di `.env` diubah dari `UTC` ke `Asia/Jakarta` — tanpa ini reminder_time tidak akan pernah cocok dengan waktu server
-- [ ] **Catatan risiko (belum solved, sifatnya inherent):** koneksi Baileys bisa auto-logout / pesan silently dropped kalau sesi baru di-link lalu langsung dipakai kirim beruntun (dideteksi WhatsApp sebagai spam). Kode & alur teknis sudah diverifikasi benar (message key + status PENDING dikembalikan, log wa_logs tercatat). Perlu testing lebih santai (jeda antar pesan) saat lanjut development, dan pertimbangkan provider resmi/berbayar kalau mau reliability lebih tinggi di production.
+- [x] Fix penting #2: scheduler tidak pernah benar-benar jalan otomatis — `Schedule::everyMinute()` cuma mendefinisikan JADWAL, tidak ada yang men-trigger `php artisan schedule:run` tiap menit. Solusi: tambahkan `php artisan schedule:work` ke `composer run dev` (lihat `composer.json`) supaya scheduler selalu aktif tiap kali dev server dijalankan.
+- [ ] **Catatan risiko (belum solved, sifatnya inherent):** koneksi Baileys bisa auto-logout / pesan silently dropped (bahkan sampai status resmi "account restricted" dari WhatsApp) kalau sesi dipakai kirim beruntun/testing manual. Sudah dicoba migrasi ke **WhatsApp Cloud API resmi (Meta)** sebagai alternatif (21 Juli 2026) — secara teknis berhasil terhubung & terverifikasi, tapi mentok di proses **Verifikasi Bisnis Meta** yang mewajibkan dokumen legal badan usaha (tidak berlaku untuk proyek personal/skripsi tanpa badan usaha terdaftar). Diputuskan **kembali ke Baileys**. Kesepakatan ke depan: jangan pernah kirim pesan test manual lagi di luar scheduler asli — biarkan 1 tugas = 1 reminder natural, supaya tidak memicu deteksi spam lagi.
 
 ## Langkah 4: Frontend Mobile-First (React.js)
 - [x] Setup React.js + Tailwind CSS + Lucide React (icon set)
@@ -50,9 +51,23 @@ Referensi: [PRD_SakuTask.md](PRD_SakuTask.md) (roadmap bagian 7)
 - [x] Loading state di Dashboard, Finances, Todos saat fetch data
 - [x] Cegah submit ganda (disable tombol + teks "Menyimpan.../Memproses...") di semua form: Login, Register, Todos, Finances
 
+## Fitur Laporan (21 Juli 2026)
+- [x] Halaman `/laporan` — filter periode (Bulan Ini/Lalu/Tahun Ini/Kustom)
+- [x] Ringkasan keuangan (pemasukan/pengeluaran/saldo bersih) per periode
+- [x] Breakdown kategori pengeluaran + tren 6 bulan terakhir
+- [x] Ringkasan tugas (completion rate) + statistik reminder WA (terkirim/gagal)
+- [x] Export PDF (jsPDF + autotable) — layout print-friendly terang, terpisah dari tema gelap aplikasi
+
+## Fitur Pengaturan + Tema Terang/Gelap (21 Juli 2026)
+- [x] Sistem tema dark/light penuh — CSS variables di `theme.css` + `ThemeContext`, diterapkan ke Layout/Dashboard/Finances/Todos/Laporan (Login/Register tetap dark-only, keputusan sadar — auth page biasanya brand-fixed)
+- [x] Halaman `/pengaturan`: edit profil (avatar inisial), tes koneksi WA, ganti password, kelola sesi login aktif (revoke), hapus akun (dengan konfirmasi ketik "HAPUS")
+- [x] Toggle notifikasi WA per-user (`wa_notifications_enabled`) — scheduler cek kolom ini sebelum kirim
+- [x] Fix penting #3: nomor WA format lokal (`0...`) sekarang otomatis dinormalisasi ke format internasional (`62...`) via mutator di `User` model — sebelumnya jadi bug berulang (3x kejadian di akun berbeda)
+
 ## Belum masuk PRD tapi perlu diputuskan nanti
 - [ ] Dashboard Admin (statistik, monitoring WA gateway) — role Admin disebut di §3 tapi belum ada detail fungsional
 - [ ] Deployment/hosting plan
+- [ ] Otentikasi Dua Faktor, upload foto profil asli, pilihan bahasa — sengaja di-skip dulu di halaman Pengaturan (effort besar / belum relevan untuk scope personal saat ini)
 
 ---
 *Update checklist ini setiap kali sebuah item selesai dikerjakan, agar progres selalu sinkron.*

@@ -18,7 +18,7 @@ import {
 import api from '../lib/api';
 import Spinner from '../components/Spinner';
 import { useAuth } from '../context/AuthContext';
-import { formatRupiah } from '../lib/format';
+import { formatRupiah, formatDateOnly } from '../lib/format';
 
 const today = new Date();
 const todayLabel = today.toLocaleDateString('id-ID', {
@@ -326,7 +326,7 @@ export default function Dashboard() {
                 </div>
                 <div className="dash-txn-info">
                   <p className="dash-txn-cat">{f.category}</p>
-                  <p className="dash-txn-date">{f.date?.slice(0, 10)}</p>
+                  <p className="dash-txn-date">{f.date && formatDateOnly(f.date)}</p>
                 </div>
                 <span className={`dash-txn-amount ${f.type === 'in' ? 'dash-text-income' : 'dash-text-expense'}`}>
                   {f.type === 'in' ? '+' : '-'}{formatRupiah(f.amount)}

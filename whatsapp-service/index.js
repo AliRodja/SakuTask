@@ -22,6 +22,12 @@ async function startSock() {
 
     sock.ev.on('creds.update', saveCreds);
 
+    sock.ev.on('messages.update', (updates) => {
+        for (const u of updates) {
+            console.log('message status update:', JSON.stringify({ key: u.key, update: u.update }));
+        }
+    });
+
     sock.ev.on('connection.update', (update) => {
         const { connection, lastDisconnect, qr } = update;
 
@@ -59,6 +65,13 @@ app.post('/send', async (req, res) => {
         console.log('sendMessage error:', error.message);
         res.status(500).json({ success: false, error: error.message });
     }
+});
+
+app.get('/whoami', (req, res) => {
+    if (!sock) {
+        return res.status(503).json({ success: false, error: 'WhatsApp belum terhubung' });
+    }
+    res.json({ success: true, user: sock.user || null });
 });
 
 app.get('/check/:number', async (req, res) => {

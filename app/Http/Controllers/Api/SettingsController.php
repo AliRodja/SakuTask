@@ -89,8 +89,6 @@ class SettingsController extends Controller
 
     public function whatsappStatus(Request $request, WhatsAppNotificationService $wa)
     {
-        $connected = $wa->checkConnection($request->user()->whatsapp_number);
-
-        return response()->json(['connected' => $connected]);
+        return response()->json(['connected' => $wa->checkConnection($request->user()->whatsapp_number)]);
     }
 }
